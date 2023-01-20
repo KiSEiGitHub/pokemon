@@ -17,7 +17,7 @@ interface pokemon {
    id: number;
 }
 
-const bgCards = (type: string) => {
+export const bgCards = (type: string) => {
    switch (type) {
       case "fire":
          return "red";
