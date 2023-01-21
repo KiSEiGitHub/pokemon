@@ -1,5 +1,5 @@
-import { mode } from "@chakra-ui/theme-tools";
 import { extendTheme } from "@chakra-ui/react";
+import { mode } from "@chakra-ui/theme-tools";
 
 const colors = {
    dark: {
@@ -7,7 +7,7 @@ const colors = {
       secondary: "#202020",
       text: {
          primary: "#dcdcdc",
-         secondary: "#5d5d5d",
+         secondary: "#999999",
          black: "#000",
       },
    },
@@ -46,8 +46,22 @@ export const theme = extendTheme({
                colors.dark.text.primary
             )(props),
          }),
+         variants: {
+            sectionTitle: (props: any) => ({
+               fontSize: "0.95em",
+               textTransform: "uppercase",
+               letterSpacing: "0.1em",
+            }),
+         },
       },
       Text: {
+         baseStyle: (props: any) => ({
+            fontWeight: 600,
+            color: mode(
+               colors.light.text.black,
+               colors.dark.text.secondary
+            )(props),
+         }),
          variants: {
             id: (props: any) => ({
                color: mode(

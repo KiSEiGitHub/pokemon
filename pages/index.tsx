@@ -19,7 +19,11 @@ function Home() {
       // fetch base
       const resBase = await fetch(`https://pokeapi.co/api/v2/pokemon/1`);
       const dataBase = await resBase.json();
-      setPokemonBase({ data: dataBase, species: {} });
+      const resBaseS = await fetch(
+         "https://pokeapi.co/api/v2/pokemon-species/1/"
+      );
+      const dataBaseS = await resBaseS.json();
+      setPokemonBase({ data: dataBase, species: dataBaseS });
 
       results.forEach(async (p: any) => {
          const resSpecies = await fetch(
@@ -43,6 +47,8 @@ function Home() {
          getPokemon();
       }
    }, [pokemonBase]);
+
+   console.log(pokemonBase);
 
    return (
       <Container maxW="100%">
