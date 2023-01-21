@@ -26,6 +26,15 @@ function Pokemon({ pokemon }: any) {
       { slug: "TOT", color: "#7195dc" },
    ];
 
+   // data.stats.push({
+   //    base_stat: 45,
+   //    effort: 0,
+   //    stat: {
+   //       name: "TOT",
+   //       url: "ma teub",
+   //    },
+   // });
+
    data.stats.forEach((item: any, key: number) => {
       item.slug = tab[key].slug;
       item.color = tab[key].color;
@@ -72,7 +81,7 @@ function Pokemon({ pokemon }: any) {
             <Heading textAlign="center" mt={3} variant="sectionTitle">
                POKÉDEX ENTRY
             </Heading>
-            <Text maxW="450px" mx="auto" mt={3}>
+            <Text mt={3}>
                {species["flavor_text_entries"][0]["flavor_text"]}
             </Text>
 

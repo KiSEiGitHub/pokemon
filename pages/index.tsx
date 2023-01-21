@@ -53,7 +53,7 @@ function Home() {
    return (
       <Container maxW="100%">
          <Grid templateColumns="1fr 0.5fr" pos="relative">
-            <GridItem colStart={1}>
+            <GridItem colStart={1} mt={10}>
                <Flex flexWrap="wrap" gap={10} justifyContent="center" mt={10}>
                   {pokemon.map(({ data, species }: any, key: number) => (
                      <Box

@@ -20,6 +20,7 @@ export const StatCards = ({ name, value, color }: any) => (
       borderRadius="full"
       px={2}
       pos="relative"
+      boxShadow="md"
    >
       <Center
          mx="auto"

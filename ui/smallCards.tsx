@@ -8,6 +8,7 @@ function SmallCards({ children }: any) {
          borderRadius="full"
          py={2}
          mt={2}
+         boxShadow="md"
          mx="auto"
       >
          {children}
