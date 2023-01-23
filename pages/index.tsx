@@ -1,14 +1,31 @@
-import { Box, Button, Container, Flex, Grid, GridItem } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Grid,
+  GridItem,
+  HStack,
+  Input,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import Cards from "../ui/Cards";
+import Nav from "../ui/Nav";
 import Pokemon from "../ui/pokemon";
 
 function Home() {
+  const [lugia, setLugia] = useState<any>({});
+  const [oh, setOh] = useState<any>({});
+  const { handleSubmit, register } = useForm();
+  const [From, setFrom] = useState<number>(0);
+  const [Limit, setLimit] = useState<number>(25);
   const [pokemon, setPokemon] = useState<Array<any>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [pokemonBase, setPokemonBase] = useState<object>({});
   const [url, setUrl] = useState<string>(
-    "https://pokeapi.co/api/v2/pokemon?limit=10&offset=386"
+    `https://pokeapi.co/api/v2/pokemon?limit=${Limit}&offset=${From}`
   );
 
   const getPokemon = async () => {
@@ -16,6 +33,14 @@ function Home() {
     const { results, next } = await res.json();
     setUrl(next);
     if (isLoading) {
+      // set nav base
+      const resNavL = await fetch("https://pokeapi.co/api/v2/pokemon/lugia");
+      const dataResL = await resNavL.json();
+      setLugia(dataResL);
+
+      const resNavO = await fetch("https://pokeapi.co/api/v2/pokemon/250");
+      const dataResO = await resNavO.json();
+      setOh(dataResO);
       // fetch base
       const resBase = await fetch(`https://pokeapi.co/api/v2/pokemon/1`);
       const dataBase = await resBase.json();
@@ -43,18 +68,72 @@ function Home() {
     setIsLoading(false);
   };
 
+  const pokeForm = (data: any) => {
+    const { From, Limit }: any = data;
+    setFrom(From);
+    setLimit(Limit);
+    setIsLoading(true);
+    setUrl(`https://pokeapi.co/api/v2/pokemon?limit=${Limit}&offset=${From}`);
+  };
+
   useEffect(() => {
     if (isLoading) {
       getPokemon();
     }
-  }, [pokemonBase]);
+  }, [pokemonBase, url]);
 
+  console.log(lugia);
+  console.log(oh);
 
   return (
     <Container maxW="100%">
-      <Grid templateColumns="1fr 0.5fr" pr={20} pos="relative">
-        <GridItem colStart={1} my={5}>
-          <Flex flexWrap="wrap" gap={10} justifyContent="center" mt={10}>
+      <Grid
+        templateColumns="0.7fr 0.5fr"
+        templateRows="90px 1fr"
+        templateAreas={`
+                "nav poke"
+                "item poke"
+              `}
+        pos="relative"
+        pb={10}
+        gap={10}
+      >
+        <GridItem
+          area="nav"
+          bg={useColorModeValue("light.secondary", "dark.secondary")}
+          borderRadius="xl"
+          mt={5}
+          pos="sticky"
+          boxShadow="lg"
+          top={0}
+          zIndex={5}
+        >
+          <HStack
+            justifyContent="space-between"
+            h="full"
+            alignItems="center"
+            px={5}
+          >
+            <form onSubmit={handleSubmit(pokeForm)}>
+              <Input placeholder="From" {...register("From")} w="65px" />
+              <Input
+                placeholder="Limit"
+                {...register("Limit")}
+                w="65px"
+                mx={2}
+              />
+              <Button type="submit">ok</Button>
+            </form>
+            {!isLoading && (
+              <Nav
+                Lugia={lugia.sprites["front_default"]}
+                HoHo={oh.sprites["front_default"]}
+              />
+            )}
+          </HStack>
+        </GridItem>
+        <GridItem area="item" my={5} zIndex={2} pos="relative">
+          <Flex flexWrap="wrap" gap={10} justifyContent="space-between">
             {pokemon.map(({ data, species }: any, key: number) => (
               <Box
                 key={key}
@@ -76,7 +155,7 @@ function Home() {
             Load more
           </Button>
         </GridItem>
-        <GridItem colStart={2} pos="sticky" h="500px" top='150px'>
+        <GridItem area="poke" h="800px" pos="sticky" top="150px">
           {!isLoading && <Pokemon pokemon={pokemonBase} />}
         </GridItem>
       </Grid>

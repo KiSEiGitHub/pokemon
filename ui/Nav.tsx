@@ -1,15 +1,30 @@
-import { Box, Button, useColorMode, useColorModeValue } from "@chakra-ui/react";
-import { SunIcon, MoonIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  Image,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
-function Nav() {
+function Nav({ Lugia, HoHo }: any) {
+  console.log(Lugia);
+  console.log(HoHo);
+
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <Box pos="fixed" right={10} top={10} zIndex={2}>
+    <Box zIndex={2}>
       <Button
         onClick={toggleColorMode}
+        borderRadius="full"
+        h="40px"
+        w="40px"
         colorScheme={useColorModeValue("purple", "orange")}
       >
-        {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+        <Image
+          alt="ok"
+          pos="absolute"
+          src={colorMode === "light" ? Lugia : HoHo}
+        />
       </Button>
     </Box>
   );

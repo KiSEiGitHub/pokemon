@@ -45,8 +45,8 @@ function Pokemon({ pokemon }: any) {
       maxW="100%"
       pos="relative"
       borderRadius="35px"
-      h="auto"
       pb={10}
+      h='full'
       boxShadow="lg"
       bg={useColorModeValue("light.secondary", "dark.secondary")}
     >
