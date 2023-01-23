@@ -88,7 +88,7 @@ function Pokemon({ pokemon }: any) {
                 <Box
                   px={5}
                   py={2}
-                  border="1px solid red"
+                  border={`1px solid red`}
                   borderRadius="full"
                   key={key}
                   // eslint-disable-next-line react-hooks/rules-of-hooks
