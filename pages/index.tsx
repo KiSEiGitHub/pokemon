@@ -49,7 +49,6 @@ function Home() {
     }
   }, [pokemonBase]);
 
-  console.log(pokemonBase);
 
   return (
     <Container maxW="100%">
