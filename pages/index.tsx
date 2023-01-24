@@ -77,7 +77,7 @@ function Home() {
   };
 
   useEffect(() => {
-    if (isLoading) {
+      if (isLoading) {
       getPokemon();
     }
   }, [pokemonBase, url]);
@@ -109,21 +109,11 @@ function Home() {
           zIndex={5}
         >
           <HStack
-            justifyContent="space-between"
+            justifyContent="flex-end"
             h="full"
             alignItems="center"
             px={5}
           >
-            <form onSubmit={handleSubmit(pokeForm)}>
-              <Input placeholder="From" {...register("From")} w="65px" />
-              <Input
-                placeholder="Limit"
-                {...register("Limit")}
-                w="65px"
-                mx={2}
-              />
-              <Button type="submit">ok</Button>
-            </form>
             {!isLoading && (
               <Nav
                 Lugia={lugia.sprites["front_default"]}
